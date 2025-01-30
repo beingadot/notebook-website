@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0e0909;
+        }
+
+        /* Header */
+        .header {
+            background-color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+            text-decoration: none;
+        }
+
+        /* Cart Section */
+        .cart-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: rgb(63, 26, 26);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-details {
+            flex: 1;
+            padding-left: 15px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-btn {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .cart-total {
+            text-align: right;
+            padding-top: 20px;
+            font-size: 18px;
+        }
+
+        .summary {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: right;
+        }
+
+        .summary p {
+            margin: 5px 0;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .place-order {
+            background: #ff9800;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .place-order:hover {
+            background: #f57c00;
+        }
+
+        .free-delivery-message {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none; /* Hidden by default */
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .image-box {
+            height: 100%;
+            width: 350px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #2e1e1e;
+            margin-top: 20px;
+        }
+        .image-box img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <!-- Logo -->
+        <a href="index.html" class="logo">Free delivery on 3 orders</a>
+    
+        <!-- Navigation Links -->
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="index.html">Shop</a>
+          <a href="index.html">About</a>
+          <a href="index.html">Contact</a>
+        </nav>
+    
+        <!-- Search Bar -->
+        <div class="search-container">
+          <input type="text" placeholder="Search...">
+          <button>🔍</button>
+        </div>
+    
+        <!-- Action Icons -->
+        <div class="actions">
+          <a href="cart.html">🛒</a>
+        </div>
+      </header>
+
+    <section class="cart-container">
+        <h1>Your Cart</h1>
+
+        <div class="cart-item">
+            <img src="image1.png" alt="Muffler" width="80">
+            <div class="cart-details">
+                <h2>200 PAGES</h2>
+                <p>Price: ₹199</p>
+            </div>
+            <div class="quantity-controls">
+                <button class="quantity-btn" onclick="decreaseQuantity(this, 199)">-</button>
+                <span class="quantity">0</span>
+                <button class="quantity-btn" onclick="increaseQuantity(this, 199)">+</button>
+            </div>
+        </div>
+
+        <div class="cart-item">
+            <img src="image2.png" alt="Beanie Cap" width="80">
+            <div class="cart-details">
+                <h2>300 PAGES</h2>
+                <p>Price: ₹279</p>
+            </div>
+            <div class="quantity-controls">
+                <button class="quantity-btn" onclick="decreaseQuantity(this, 279)">-</button>
+                <span class="quantity">0</span>
+                <button class="quantity-btn" onclick="increaseQuantity(this, 279)">+</button>
+            </div>
+        </div>
+
+        <div class="cart-item">
+            <img src="image5.png" alt="Jacket" width="80">
+            <div class="cart-details">
+                <h2>400 PAGES</h2>
+                <p>Price: ₹329</p>
+            </div>
+            <div class="quantity-controls">
+                <button class="quantity-btn" onclick="decreaseQuantity(this, 329)">-</button>
+                <span class="quantity">0</span>
+                <button class="quantity-btn" onclick="increaseQuantity(this, 329)">+</button>
+            </div>
+        </div>
+
+        <div class="cart-total">
+            <h2>Total Amount: ₹<span id="total-amount">0</span></h2>
+        </div>
+
+        <div class="summary">
+            <p>Delivery Fee: ₹<span id="delivery-fee">0</span></p>
+            <p>Platform Fee: ₹0</p>
+            <p>Discount: ₹<span id="discount">0</span></p>
+            <p class="bold">Net Amount: ₹<span id="net-amount">0</span></p>
+            <p class="free-delivery-message" id="free-delivery-message">Wow, you got free delivery on this purchase!</p>
+            <p class="add-more-message" id="add-more-message">Add more to get free delivery!</p>
+        </div>
+        <div class="image-box">
+            <img src="qr.png" alt="Custom Image">
+        </div>
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSesEEdVpcn9OslVWgq2NuV7TqMADQbGrieDmHbbSVoJIIetnw/viewform?usp=header" target="_blank" class="buy-now">Proceed (only when payment done)</a>
+
+    </section>
+
+    <footer>
+        <!-- Contact Section -->
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <ul>
+                <li>Email: beingadot@gmail.com</li>
+                <li>Phone: +91 9153 797 541</li>
+            </ul>
+        </div>
+        </footer>
+
+    <script>
+        function updateSummary() {
+            let quantities = document.querySelectorAll('.quantity');
+            let totalAmount = 0;
+            let totalItems = 0;
+            quantities.forEach((quantity, index) => {
+                totalAmount += parseInt(quantity.textContent) * [199,279,329][index];
+                totalItems += parseInt(quantity.textContent);
+            });
+            let discount = totalItems >= 3 ? totalAmount * 0.1 : 0;
+            let deliveryFee = totalItems >= 3 ? 0 : 70;
+            let netAmount = totalAmount + deliveryFee - discount;
+
+            // Update the DOM elements
+            document.getElementById('total-amount').textContent = totalAmount;
+            document.getElementById('discount').textContent = discount.toFixed(2);
+            document.getElementById('delivery-fee').textContent = deliveryFee;
+            document.getElementById('net-amount').textContent = netAmount.toFixed(2);
+
+            // Show or hide the free delivery message
+            let freeDeliveryMessage = document.getElementById('free-delivery-message');
+            let addmoremessage = document.getElementById('add-more-message');
+            if (deliveryFee === 0) {
+                freeDeliveryMessage.style.display = 'block';
+            } else {
+                addmoremessage.style.display = 'block';
+            }
+        }
+
+        function increaseQuantity(button, price) {
+            let quantitySpan = button.previousElementSibling;
+            quantitySpan.textContent = parseInt(quantitySpan.textContent) + 1;
+            updateSummary();
+        }
+
+        function decreaseQuantity(button, price) {
+            let quantitySpan = button.nextElementSibling;
+            let quantity = parseInt(quantitySpan.textContent);
+            if (quantity > 0) {
+                quantitySpan.textContent = quantity - 1;
+                updateSummary();
+            }
+        }
+        
+    </script>
+</body>
+</html>
